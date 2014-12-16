@@ -37,13 +37,16 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 app.set('views', './views');
 
 
-//app.use(passport.initialize());
-//app.use(passport.session()); // persistent login sessions
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+require('./config/passport')(passport);
+
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 app.use(express.static('./public'));
+
 
 // launch ======================================================================
 app.listen(port);
